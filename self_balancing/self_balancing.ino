@@ -25,15 +25,17 @@ VectorFloat gravity;    // [x, y, z]            gravity vector
 float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vector
 
 //PID
-double originalSetpoint = 184;  
+double originalSetpoint = 185.5;  
 double setpoint = originalSetpoint;
 double movingAngleOffset = 0.1;
 double input, output;
 int moveState=0; //0 = balance; 1 = back; 2 = forth
-double Kp = 10; // First adjustment
-double Kd = 0; // Second adjustment
-double Ki = 0; // Third adjustment
-PID pid(&input, &output, &setpoint, Kp, Ki, Kd, DIRECT); // kp = 55,kd=0.9
+double Kp = 50; // First adjustment
+double Kd = 1.8; // Second adjustment
+double Ki = 119; // Third adjustment
+
+
+PID pid(&input, &output, &setpoint, Kp, Ki, Kd, DIRECT); 
 
 double motorSpeedFactorLeft = 0.6;
 double motorSpeedFactorRight = 0.6;
@@ -86,10 +88,10 @@ void setup()
     devStatus = mpu.dmpInitialize();
 
     // supply your own gyro offsets here, scaled for min sensitivity
-    mpu.setXGyroOffset(71);
-    mpu.setYGyroOffset(-56);
-    mpu.setZGyroOffset(10);
-    mpu.setZAccelOffset(350); // 1688 factory default for my test chip
+    mpu.setXGyroOffset(62);
+    mpu.setYGyroOffset(-53);
+    mpu.setZGyroOffset(13);
+    mpu.setZAccelOffset(365);
 
     // make sure it worked (returns 0 if so)
     if (devStatus == 0)
